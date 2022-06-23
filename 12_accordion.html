@@ -81,12 +81,16 @@
         
         contents.hide();
         $('#content1').show();
-          let duration = 300;
+        let duration = 300;
 
         const doSlide = function (id) {
           let duration = 300;
           let currentContent = $(id)
-          
+          /*
+            $().is(selector) => boolean
+            $(id).is('div')
+            $(id).is('.content')
+          */
           if (currentContent.is(':hidden')) {
             contents.slideUp(duration);
             currentContent.slideDown(duration);
