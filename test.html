@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: iranyekan;
+        src: url('/fonts/IRYEKANR.woff');
+      }
+      body {
+        font-family: iranyekan;
+      }
+
+      .active {
+        background-color: yellowgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>نمونه</h1>
+    <p>121356</p>
+    <div class="category-wrapper"></div>
+
+    <script>
+      fetch('/data/category.json')
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (categories) {
+          createCategoriesButton(categories);
+          document.querySelector('.category-button').click()
+        });
+
+      const createCategoriesButton = function (categories) {
+        const categoryWrapper = document.querySelector('.category-wrapper')
+        console.log(categories)
+
+        categories.forEach(function(category){
+            // const categoryButton = `
+            //     <button class='category-button' onclick="onCategorySelect(${category.id})">${category.name}</button>
+            // `
+            // categoryWrapper.innerHTML += categoryButton
+
+            const categoryButton = document.createElement('button')
+            categoryButton.innerText = category.name
+            categoryButton.classList.add('category-button')
+            categoryButton.onclick = categoryButtonClickHandler.bind(categoryButton, category.id)
+            categoryWrapper.append(categoryButton)
+        });
+      };
+
+      const categoryButtonClickHandler = function(id){
+        console.log(id)
+        console.log(this)
+
+        const categoryButtons = document.querySelectorAll('.category-button')
+        for(const categoryButton of categoryButtons){
+            categoryButton.classList.remove('active')
+        }
+        this.classList.add('active')
+      }
+
+      
+      
+
+
+    </script>
+  </body>
+</html>
